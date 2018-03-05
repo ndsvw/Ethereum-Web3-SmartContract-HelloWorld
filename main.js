@@ -1,14 +1,12 @@
 const Web3 = require("web3");
 const solc = require("solc");
+const fs = require("fs");
 let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
-let source = `pragma solidity ^0.4.20;
-contract HelloWorld {
-  function displayMessage() pure public returns (string) { return "Hello from a smart contract"; }
-}
-`
-
 let main = async () => {
+  // loading the source code from a solidity file
+  let source = fs.readFileSync("./helloWorld.sol", "utf8");
+
   let accounts = await web3.eth.getAccounts();
   let acc1 = accounts[0];
 
